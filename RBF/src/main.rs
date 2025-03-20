@@ -1,13 +1,8 @@
 mod helpers;
 
 fn main() {
-    let x1 = vec![0, 1, 1, 0];
-    let x2 = vec![0, 1, 0, 1];
-    let f = vec![0, 2, 1, 1];
-
-    helpers::print_vector::print_v(&x1);
-    println!(" ");
-    helpers::print_vector::print_v(&x2);
-    println!(" ");
-    helpers::print_vector::print_v(&f);
+    let v1 = vec![0, 1];
+    let v2 = vec![1, 0];
+    let distancia = helpers::utils::centers_distance(&v1, &v2);
+    println!("La distancia es: {}", distancia);
 }
