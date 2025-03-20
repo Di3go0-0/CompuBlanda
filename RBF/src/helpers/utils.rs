@@ -18,3 +18,9 @@ pub fn centers_distance(x1: &Vec<i32>, x2: &Vec<i32>) -> f64 {
     // Convertimos a f64 y calculamos la raíz cuadrada
     (sum as f64).sqrt()
 }
+
+pub fn e(distance: f64) -> f64 {
+    let g: f64 = 0.5;
+    // Calculamos e^(-(distance²)/(2g²))
+    (-distance.powi(2) / (2.0 * g.powi(2))).exp()
+}
