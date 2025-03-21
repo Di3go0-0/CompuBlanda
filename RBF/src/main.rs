@@ -5,6 +5,6 @@ fn main() {
     let x2 = vec![0.0, 1.0, 0.0, 1.0];
     let f = vec![0.0, 1.0, 1.0, 2.0];
 
-    let weight_vextor = helpers::solver::weight_vector(&x1, &x2, &f);
+    let weight_vector = helpers::solver::weight_vector(&x1, &x2, &f);
     println!("vector: {:?}", weight_vextor);
 }
