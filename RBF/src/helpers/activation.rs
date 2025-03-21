@@ -9,13 +9,13 @@ use super::gaussiana::{centers::get_center, centers_distance::centers_distance, 
 ///
 /// # Returns
 /// * `Vec<Vec<f64>>` - Matriz de activación A
-pub fn build_activation_matrix(x1: &Vec<f64>, x2: &Vec<f64>, _f: &Vec<f64>) -> Vec<Vec<f64>> {
+pub fn build_activation_matrix(x1: &Vec<f64>, x2: &Vec<f64>) -> Vec<Vec<f64>> {
     let n = x1.len();
     let mut activation_matrix = Vec::with_capacity(n);
 
     // Para cada punto (x1[i], x2[i])
     for i in 0..n {
-        let mut row = Vec::with_capacity(n);
+        let mut row: Vec<f64> = Vec::with_capacity(n);
 
         // Obtenemos el punto actual para el cual calcularemos las distancias
         let current_point = vec![x1[i], x2[i]];
@@ -26,7 +26,7 @@ pub fn build_activation_matrix(x1: &Vec<f64>, x2: &Vec<f64>, _f: &Vec<f64>) -> V
                 // Calculamos la distancia entre el punto actual y el centro
                 let distance = centers_distance(&current_point, &center);
                 // Calculamos el valor de la función gaussiana
-                let activation = e(distance);
+                let activation = e(&distance, x1, x2);
                 row.push(activation);
             }
         }
@@ -34,5 +34,5 @@ pub fn build_activation_matrix(x1: &Vec<f64>, x2: &Vec<f64>, _f: &Vec<f64>) -> V
         activation_matrix.push(row);
     }
 
-    activation_matrix
+    return activation_matrix;
 }
