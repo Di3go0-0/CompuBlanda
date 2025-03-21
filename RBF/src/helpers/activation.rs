@@ -1,7 +1,4 @@
-use super::{
-    centers::get_center,
-    gaussiana::{centers_distance::centers_distance, e::e},
-};
+use super::gaussiana::{centers::get_center, centers_distance::centers_distance, e::e};
 
 /// Construye la matriz de activación A para una Red Neuronal RBF
 ///
