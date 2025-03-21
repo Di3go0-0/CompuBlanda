@@ -1,8 +1,4 @@
-use super::sigma::calculate_sigma;
-
-pub fn e(distance: &f64, x1: &Vec<f64>, x2: &Vec<f64>) -> f64 {
-    let g = calculate_sigma(x1, x2); // Desempaquetamos `Result<f64, String>` usando `?`
-
+pub fn e(distance: &f64, x1: &Vec<f64>, x2: &Vec<f64>, g: f64) -> f64 {
     let distance_squared = distance.powi(2);
     let sigma_squared = g.powi(2);
 

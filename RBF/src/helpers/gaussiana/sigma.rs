@@ -15,8 +15,9 @@ use super::{centers::get_center, centers_distance::centers_distance};
 /// let x2 = vec![0.0, 1.0, 0.0, 1.0];
 /// let sigma = calculate_sigma(&x1, &x2).unwrap();
 /// ```
-pub fn calculate_sigma(x1: &Vec<f64>, x2: &Vec<f64>) -> f64 {
+pub fn calculate_sigma(x1: &Vec<f64>, x2: &Vec<f64>, centers: &Vec<Vec<f64>>) -> f64 {
     let n = x1.len();
+    let size_centers = centers.len();
 
     // Validación de entrada
     if n != x2.len() || n == 0 {
@@ -31,12 +32,13 @@ pub fn calculate_sigma(x1: &Vec<f64>, x2: &Vec<f64>) -> f64 {
             return 1.0;
         };
 
-        for j in (i + 1)..n {
-            let Some(center_j) = get_center(x1, x2, j) else {
-                return 1.0;
-            };
+        for j in 0..size_centers {
+            let current_center: Vec<f64> = vec![centers[j][0], centers[j][1]];
+            // let Some(center_j) = get_center(x1, x2, j) else {
+            //     return 1.0;
+            // };
 
-            total_distance += centers_distance(&center_i, &center_j);
+            total_distance += centers_distance(&center_i, &current_center);
             count += 1;
         }
     }
@@ -46,4 +48,6 @@ pub fn calculate_sigma(x1: &Vec<f64>, x2: &Vec<f64>) -> f64 {
     } else {
         total_distance / count as f64
     }
+
+    // return 3.0023;
 }
