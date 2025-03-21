@@ -1,5 +1,10 @@
-pub fn e(distance: f64) -> f64 {
-    let g: f64 = 0.5;
-    // Calculamos e^(-(distance²)/(2g²))
-    (-distance.powi(2) / (2.0 * g.powi(2))).exp()
+use super::sigma::calculate_sigma;
+
+pub fn e(distance: &f64, x1: &Vec<f64>, x2: &Vec<f64>) -> f64 {
+    let g = calculate_sigma(x1, x2); // Desempaquetamos `Result<f64, String>` usando `?`
+
+    let distance_squared = distance.powi(2);
+    let sigma_squared = g.powi(2);
+
+    return ((-distance_squared / (2.0 * sigma_squared)).exp()); // Retornamos el resultado como `Result<f64, String>`
 }
