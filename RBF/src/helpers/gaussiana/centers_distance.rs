@@ -1,4 +1,4 @@
-pub fn centers_distance(x1: &Vec<i32>, x2: &Vec<i32>) -> f64 {
+pub fn centers_distance(x1: &Vec<f64>, x2: &Vec<f64>) -> f64 {
     // Verificamos que los vectores tengan la misma longitud
     assert_eq!(
         x1.len(),
@@ -7,12 +7,12 @@ pub fn centers_distance(x1: &Vec<i32>, x2: &Vec<i32>) -> f64 {
     );
 
     // Calculamos la suma de las diferencias al cuadrado
-    let sum: i32 = x1
+    let sum: f64 = x1
         .iter()
         .zip(x2.iter()) // Emparejamos los elementos de ambos vectores
-        .map(|(a, b)| (a - b).pow(2)) // Restamos y elevamos al cuadrado
+        .map(|(a, b)| (a - b) * (a - b)) // Restamos y multiplicamos (equivalente a pow(2))
         .sum(); // Sumamos todos los resultados
 
-    // Convertimos a f64 y calculamos la raíz cuadrada
-    (sum as f64).sqrt()
+    // Calculamos la raíz cuadrada
+    sum.sqrt()
 }
