@@ -7,9 +7,9 @@ use super::activation;
 use super::matrix;
 
 pub fn weight_vector(x1: &Vec<f64>, x2: &Vec<f64>, _f: &Vec<f64>) -> Vec<f64> {
-    let activation_matrix = activation::build_activation_matrix(&x1, &x2, &_f);
+    let activation_matrix = activation::build_activation_matrix(x1, x2);
 
-    let f_to_matrix = matrix::vector_to_matrix::vector_to_matrix(&_f);
+    let f_to_matrix = matrix::vector_to_matrix::vector_to_matrix(_f);
 
     let inverse_matrix = match matrix::inverse::inverse(&activation_matrix) {
         Some(matrix) => matrix,
