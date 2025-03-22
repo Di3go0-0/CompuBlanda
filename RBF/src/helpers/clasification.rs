@@ -1,4 +1,6 @@
-use super::gaussiana::{centers::get_center, centers_distance::centers_distance, e::e};
+use super::gaussiana::{
+    centers::get_center, centers_distance::centers_distance, e::e, sigma::calculate_sigma,
+};
 
 /// Realiza la clasificación usando RBF
 ///
@@ -10,15 +12,22 @@ use super::gaussiana::{centers::get_center, centers_distance::centers_distance, 
 ///
 /// # Returns
 /// * `f64` - Predicción calculada
-pub fn clasification(w: &Vec<f64>, center: &Vec<f64>, x1: &Vec<f64>, x2: &Vec<f64>) -> f64 {
+pub fn clasification(
+    w: &Vec<f64>,
+    center: &Vec<f64>,
+    x1: &Vec<f64>,
+    x2: &Vec<f64>,
+    centers: &Vec<Vec<f64>>,
+) -> f64 {
     let n = w.len();
+    let g: f64 = calculate_sigma(x1, x2, centers);
 
     let mut row: Vec<f64> = Vec::with_capacity(n);
 
     for i in 0..n {
         if let Some(current_center) = get_center(x1, x2, i) {
             let distance = centers_distance(&center, &current_center);
-            let value = e(&distance, x1, x2); // Propaga el error si ocurre
+            let value = e(&distance, x1, x2, g); // Propaga el error si ocurre
             row.push(value);
         }
     }

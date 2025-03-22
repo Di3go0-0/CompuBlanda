@@ -1,4 +1,6 @@
-use super::gaussiana::{centers::get_center, centers_distance::centers_distance, e::e};
+use super::gaussiana::{
+    self, centers::get_center, centers_distance::centers_distance, e::e, sigma::calculate_sigma,
+};
 
 /// Construye la matriz de activación A para una Red Neuronal RBF
 ///
@@ -9,9 +11,14 @@ use super::gaussiana::{centers::get_center, centers_distance::centers_distance, 
 ///
 /// # Returns
 /// * `Vec<Vec<f64>>` - Matriz de activación A
-pub fn build_activation_matrix(x1: &Vec<f64>, x2: &Vec<f64>) -> Vec<Vec<f64>> {
+pub fn build_activation_matrix(
+    x1: &Vec<f64>,
+    x2: &Vec<f64>,
+    centers: &Vec<Vec<f64>>,
+) -> Vec<Vec<f64>> {
     let n = x1.len();
     let mut activation_matrix = Vec::with_capacity(n);
+    let g: f64 = calculate_sigma(x1, x2, centers);
 
     // Para cada punto (x1[i], x2[i])
     for i in 0..n {
@@ -26,7 +33,7 @@ pub fn build_activation_matrix(x1: &Vec<f64>, x2: &Vec<f64>) -> Vec<Vec<f64>> {
                 // Calculamos la distancia entre el punto actual y el centro
                 let distance = centers_distance(&current_point, &center);
                 // Calculamos el valor de la función gaussiana
-                let activation = e(&distance, x1, x2);
+                let activation = e(&distance, x1, x2, g);
                 row.push(activation);
             }
         }

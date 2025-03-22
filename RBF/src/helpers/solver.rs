@@ -6,8 +6,13 @@ use std::f64;
 use super::activation;
 use super::matrix;
 
-pub fn weight_vector(x1: &Vec<f64>, x2: &Vec<f64>, _f: &Vec<f64>) -> Vec<f64> {
-    let activation_matrix = activation::build_activation_matrix(x1, x2);
+pub fn weight_vector(
+    x1: &Vec<f64>,
+    x2: &Vec<f64>,
+    _f: &Vec<f64>,
+    centers: &Vec<Vec<f64>>,
+) -> Vec<f64> {
+    let activation_matrix = activation::build_activation_matrix(x1, x2, centers);
 
     let f_to_matrix = matrix::vector_to_matrix::vector_to_matrix(_f);
 
